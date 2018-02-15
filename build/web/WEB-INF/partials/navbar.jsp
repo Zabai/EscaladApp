@@ -1,4 +1,8 @@
+<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% User user = (User) session.getAttribute("user"); %>
+
 <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
     <div class="container">
         <div class="navbar-brand">
@@ -7,12 +11,15 @@
                 EscaladApp
             </a>
         </div>
-        
+
         <div class="navbar-start">
             <a class="navbar-item">Montañas</a>
         </div>
 
         <div class="navbar-end">
+            <%
+                if(user == null) {
+            %>
             <a class="navbar-item" href="/account/login.jsp">
                 Entrar
             </a>
@@ -21,6 +28,18 @@
                     Registrarse
                 </a>
             </span>
+            <% } else { %>
+            <a class="navbar-item" href="/account/profile.jsp">
+                <%= user.getUsername() %>
+            </a>
+            
+            <span class="navbar-item">
+                <form action="/FrontServlet">
+                    <input hidden="true" name="command" value="LogOutCommand">
+                    <button class="button is-danger">Salir</button>
+                </form>
+            </span>
+            <% } %>
         </div>
     </div>
 </nav>

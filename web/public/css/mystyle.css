@@ -11,7 +11,7 @@
     background-color: rgb(54,54,54);
 }
 
-.box label {
+.box label, p {
     color: white;
 }
 

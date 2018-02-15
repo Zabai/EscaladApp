@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% if(session.getAttribute("user") != null) response.sendRedirect("/"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,12 +11,12 @@
     <body>
         <jsp:include page="/WEB-INF/partials/navbar.jsp"></jsp:include>
 
-            <section class="hero is-fullheight is-light is-bold">
+            <section class="hero is-fullheight is-bold bg-img">
                 <div class="hero-body">
                     <div class="container">
                         <div class="columns is-vcentered is-centered">
                             <div class="column is-4 is-centered">
-                                <h1 class="title">
+                                <h1 class="title has-text-white">
                                     Crear una cuenta
                                 </h1>
                                 <div class="box">

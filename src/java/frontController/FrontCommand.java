@@ -30,4 +30,12 @@ public abstract class FrontCommand {
             Logger.getLogger(FrontCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void redirect(String target) {
+        try {
+            response.sendRedirect(target);
+        } catch (IOException ex) {
+            Logger.getLogger(FrontCommand.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

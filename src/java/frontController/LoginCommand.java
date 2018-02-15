@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
 import model.User;
 import persistence.UserDB;
 
@@ -14,16 +16,23 @@ public class LoginCommand extends FrontCommand {
         User user = buildUserFromRequest();
         User target = UserDB.getUserByUsername(user.getUsername());
         
-        
-        
-//        try {
-//            if(user.getPassword().equals(target.getPassword()))
-//                response.sendRedirect("/");
-//            else
-//                response.sendRedirect("/account/login.jsp");
-//        } catch (IOException ex) {
-//            Logger.getLogger(LoginCommand.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        if(isCorrectPassword(user.getPassword(), target.getPassword())) {
+            HttpSession session = request.getSession();
+            
+            int expireTime = 30*60;
+            session.setAttribute("user", target);
+            session.setMaxInactiveInterval(expireTime);
+            
+            Cookie cookieUser = new Cookie("user", user.getUsername());
+            cookieUser.setMaxAge(expireTime);
+            
+            response.addCookie(cookieUser);
+            
+            redirect("/");
+        } else {
+            request.setAttribute("error", "*Usuario y contraseña incorrectos. Prueba otra vez.");
+            forward("/account/login.jsp");
+        }
     }
 
     private User buildUserFromRequest() {
@@ -34,4 +43,9 @@ public class LoginCommand extends FrontCommand {
         
         return user;
     }
+
+    private boolean isCorrectPassword(String inputPassword, String userPassword) {
+        return inputPassword.equals(userPassword);
+    }
+
 }

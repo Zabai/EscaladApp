@@ -13,36 +13,11 @@ public class SignUpCommand extends FrontCommand {
 
     @Override
     public void process() {
-        //response.sendRedirect("/");
-        /*response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet example</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet example at " + request.getContextPath() + "</h1>");
-
-            String data = request.getParameter("username") + " - "
-                    + request.getParameter("email") + " - "
-                    + request.getParameter("password") + " = " + request.getParameter("passwordRepeat");
-            out.println("<h2>" + "Datos " + data + "</h2>");
-
-            out.println("</body>");
-            out.println("</html>");
-        } catch (IOException ex) {
-            Logger.getLogger(PersonCommand.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
         User user = new User();
         buildUserFromRequest(user);
         
         UserDB.insertUser(user);
-        try {
-            response.sendRedirect("/");
-        } catch (IOException ex) {
-            Logger.getLogger(SignUpCommand.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        redirect("/account/login.jsp");
     }
     
     private User buildUserFromRequest(User user) {

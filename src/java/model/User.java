@@ -8,6 +8,7 @@ public class User {
     private String password;
     private String name, surname;
     private String email;
+    private boolean administrator;
     private Date creationDate;
 
     public int getId() {
@@ -58,6 +59,14 @@ public class User {
         this.email = email;
     }
 
+    public boolean isAdministrator() {
+        return administrator;
+    }
+
+    public void setAdministrator(boolean administrator) {
+        this.administrator = administrator;
+    }
+    
     public Date getCreationDate() {
         return creationDate;
     }

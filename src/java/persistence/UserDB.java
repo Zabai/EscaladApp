@@ -18,15 +18,18 @@ public class UserDB {
             
             ResultSet resultSet = db.getPreparedStatement().executeQuery();
             while(resultSet.next()) {
+                user.setId(resultSet.getInt("id"));
                 user.setUsername(resultSet.getString("username"));
                 user.setPassword(resultSet.getString("password"));
                 user.setName(resultSet.getString("name"));
                 user.setSurname(resultSet.getString("surname"));
+                user.setAdministrator(resultSet.getBoolean("administrator"));
                 user.setCreationDate(resultSet.getDate("creationDate"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+        db.close();
         
         return user;
     }
