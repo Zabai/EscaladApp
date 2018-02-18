@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import model.User;
 
 public class UserDB {
-    public static User getUserByUsername(String username) {
+    public static User getByUsername(String username) {
         User user = new User();
         
         DB db = new DB();

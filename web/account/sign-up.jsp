@@ -15,7 +15,7 @@
                 <div class="hero-body">
                     <div class="container">
                         <div class="columns is-vcentered is-centered">
-                            <div class="column is-4 is-centered">
+                            <div class="column is-4">
                                 <h1 class="title has-text-white">
                                     Crear una cuenta
                                 </h1>

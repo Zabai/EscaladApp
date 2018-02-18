@@ -14,7 +14,7 @@ public class LoginCommand extends FrontCommand {
     @Override
     public void process() {
         User user = buildUserFromRequest();
-        User target = UserDB.getUserByUsername(user.getUsername());
+        User target = UserDB.getByUsername(user.getUsername());
         
         if(isCorrectPassword(user.getPassword(), target.getPassword())) {
             HttpSession session = request.getSession();

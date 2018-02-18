@@ -13,12 +13,17 @@
         </div>
 
         <div class="navbar-start">
-            <a class="navbar-item">Montañas</a>
+            <a class="navbar-item">Picos</a>
+
+            <% if (user != null && user.isAdministrator()) { %>
+            <a class="navbar-item" href="/mountains/new.jsp">Añadir pico</a>
+            <a class="navbar-item" href="/mountains/show.jsp">Ver pico</a>
+            <% } %>
         </div>
 
         <div class="navbar-end">
             <%
-                if(user == null) {
+                if (user == null) {
             %>
             <a class="navbar-item" href="/account/login.jsp">
                 Entrar
@@ -28,18 +33,18 @@
                     Registrarse
                 </a>
             </span>
-            <% } else { %>
+            <% } else {%>
             <a class="navbar-item" href="/account/profile.jsp">
-                <%= user.getUsername() %>
+                <%= user.getUsername()%>
             </a>
-            
+
             <span class="navbar-item">
                 <form action="/FrontServlet">
                     <input hidden="true" name="command" value="LogOutCommand">
                     <button class="button is-danger">Salir</button>
                 </form>
             </span>
-            <% } %>
+            <% }%>
         </div>
     </div>
 </nav>
