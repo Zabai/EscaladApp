@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class User {
@@ -8,6 +9,7 @@ public class User {
     private String password;
     private String name, surname;
     private String email;
+    private ArrayList<Mountain> climbed, favourites;
     private boolean administrator;
     private Date creationDate;
 
@@ -57,6 +59,22 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public ArrayList<Mountain> getClimbed() {
+        return climbed;
+    }
+
+    public void setClimbed(ArrayList<Mountain> climbed) {
+        this.climbed = climbed;
+    }
+
+    public ArrayList<Mountain> getFavourites() {
+        return favourites;
+    }
+
+    public void setFavourites(ArrayList<Mountain> favourites) {
+        this.favourites = favourites;
     }
 
     public boolean isAdministrator() {
