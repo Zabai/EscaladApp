@@ -78,4 +78,26 @@ public class MountainDB {
         
         db.close();
     }
+
+    public static void updateMountain(Mountain mountain) {
+        DB db = new DB();
+        
+        try {
+            db.setPreparedStatement(db.getConnection()
+                    .prepareStatement("UPDATE mountains SET name=?, location=?, altitude=?, image=?, description=? "
+                            + "WHERE id=?"));
+            db.getPreparedStatement().setString(1, mountain.getName());
+            db.getPreparedStatement().setString(2, mountain.getLocation());
+            db.getPreparedStatement().setFloat(3, mountain.getAltitude());
+            db.getPreparedStatement().setString(4, mountain.getImage());
+            db.getPreparedStatement().setString(5, mountain.getDescription());
+            db.getPreparedStatement().setInt(6, mountain.getId());
+            
+            db.getPreparedStatement().executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MountainDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        db.close();
+    }
 }
