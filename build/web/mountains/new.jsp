@@ -49,7 +49,7 @@
                                         <input hidden="true" name="command" value="CreateMountainCommand">
                                         <div class="field is-grouped is-grouped-centered">
                                             <p class="control is-centered">
-                                                <button class="button is-link">Añadir montaña</button>
+                                                <button class="button is-link">Añadir pico</button>
                                                 <a class="button is-default" href="/">Cancelar</a>
                                             </p>
                                         </div>
