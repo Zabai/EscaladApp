@@ -41,7 +41,7 @@
                                         </p>
                                         <hr>
                                         
-                                        <input hidden="true" name="command" value="SignUpCommand">
+                                        <input hidden="true" name="command" value="account.SignUpCommand">
                                         <div class="field is-grouped is-grouped-centered">
                                             <p class="control is-centered">
                                                 <button class="button is-link">Registrarse</button>

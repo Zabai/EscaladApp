@@ -1,5 +1,6 @@
-package frontController;
+package frontController.account;
 
+import frontController.FrontCommand;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.logging.Level;

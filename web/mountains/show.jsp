@@ -1,6 +1,9 @@
+<%@page import="model.Mountain"%>
 <%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% User user = (User) session.getAttribute("user");%>
+<% User user = (User) session.getAttribute("user"); %>
+<% Mountain mountain = (Mountain) request.getAttribute("mountain"); %>
+<% mountain = new Mountain(); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,7 +27,7 @@
 
                             <div class="column is-6 is-offset-1">
                                 <h1 class="title is-2">
-                                    Nombre del pico
+                                    Nombre del pico <%= request.getAttribute("test") %>
                                 </h1>
                                 <h2 class="subtitle is-4">
                                     Características

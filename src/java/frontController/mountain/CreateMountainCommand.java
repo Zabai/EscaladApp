@@ -1,5 +1,6 @@
-package frontController;
+package frontController.mountain;
 
+import frontController.FrontCommand;
 import model.Mountain;
 import persistence.MountainDB;
 import util.UTF8;

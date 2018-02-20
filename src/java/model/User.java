@@ -5,10 +5,7 @@ import java.util.Date;
 
 public class User {
     private int id;
-    private String username;
-    private String password;
-    private String name, surname;
-    private String email;
+    private String username, password, name, surname, email, image;
     private ArrayList<Mountain> climbed, favourites;
     private boolean administrator;
     private Date creationDate;
@@ -59,6 +56,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public ArrayList<Mountain> getClimbed() {

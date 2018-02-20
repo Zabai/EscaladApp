@@ -1,10 +1,11 @@
-package frontController;
+package frontController.mountain;
 
+import frontController.FrontCommand;
 import model.Mountain;
 import persistence.MountainDB;
 import util.UTF8;
 
-public class EditMountain extends FrontCommand {
+public class EditMountainCommand extends FrontCommand {
 
     @Override
     public void process() {

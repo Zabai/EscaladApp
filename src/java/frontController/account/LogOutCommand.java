@@ -1,5 +1,6 @@
-package frontController;
+package frontController.account;
 
+import frontController.FrontCommand;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 

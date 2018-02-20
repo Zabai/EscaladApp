@@ -39,7 +39,7 @@
                                     </p>
                                     <hr>
 
-                                    <input hidden="true" name="command" value="LoginCommand">
+                                    <input hidden="true" name="command" value="account.LoginCommand">
                                     <div class="field is-grouped is-grouped-centered">
                                         <p class="control is-centered">
                                             <button class="button is-link">Entrar</button>

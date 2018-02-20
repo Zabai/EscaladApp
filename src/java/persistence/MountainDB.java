@@ -8,6 +8,8 @@ import java.util.logging.Logger;
 import model.Mountain;
 
 public class MountainDB {
+    private final int pageSize = 10;
+    
     public static Mountain getById(int id) {
         Mountain mountain = null;
         

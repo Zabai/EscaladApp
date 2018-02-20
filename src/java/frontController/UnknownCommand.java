@@ -21,7 +21,7 @@ public class UnknownCommand extends FrontCommand {
             out.println("</body>");
             out.println("</html>");
         } catch (IOException ex) {
-            Logger.getLogger(PersonCommand.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UnknownCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

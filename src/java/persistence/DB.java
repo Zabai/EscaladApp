@@ -1,6 +1,5 @@
 package persistence;
 
-import frontController.PersonCommand;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -52,7 +51,7 @@ public class DB {
                 connection.close();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonCommand.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

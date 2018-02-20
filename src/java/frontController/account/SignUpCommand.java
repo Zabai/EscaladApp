@@ -1,5 +1,6 @@
-package frontController;
+package frontController.account;
 
+import frontController.FrontCommand;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Base64;
