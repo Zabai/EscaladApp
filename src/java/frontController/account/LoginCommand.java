@@ -29,7 +29,7 @@ public class LoginCommand extends FrontCommand {
             
             response.addCookie(cookieUser);
             
-            redirect("/");
+            redirect("/mountains/index.jsp");
         } else {
             request.setAttribute("error", "*Usuario y contraseña incorrectos. Prueba otra vez.");
             forward("/account/login.jsp");

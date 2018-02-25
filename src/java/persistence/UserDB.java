@@ -28,6 +28,7 @@ public class UserDB {
                 user.setAdministrator(resultSet.getBoolean("administrator"));
                 user.setCreationDate(resultSet.getDate("creationDate"));
                 user.setFavourites(getUserFavourites(user.getId()));
+                user.setClimbed(getUserClimbed(user.getId()));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,9 +61,21 @@ public class UserDB {
         ArrayList<Mountain> favourites = new ArrayList<>();
         ArrayList<Integer> mountainIds = FavouriteDB.getByUserId(userId);
         
-        for(Integer mountainId : mountainIds)
+        mountainIds.stream().forEach((mountainId) -> {
             favourites.add(MountainDB.getById(mountainId));
+        });
         
         return favourites;
+    }
+
+    private static ArrayList<Mountain> getUserClimbed(int userId) {
+        ArrayList<Mountain> climbed = new ArrayList<>();
+        ArrayList<Integer> mountainIds = ClimbedDB.getByUserId(userId);
+        
+        mountainIds.stream().forEach((mountainId) -> {
+            climbed.add(MountainDB.getById(mountainId));
+        });
+        
+        return climbed;
     }
 }

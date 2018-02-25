@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class FavouriteDB {
+public class ClimbedDB {
     public static ArrayList<Integer> getByUserId(int id) {
         ArrayList<Integer> favourites = new ArrayList<>();
         
         DB db = new DB();
         try {
-            db.setPreparedStatement(db.getConnection().prepareStatement("SELECT * FROM favourites WHERE user=?"));
+            db.setPreparedStatement(db.getConnection().prepareStatement("SELECT * FROM climbed WHERE user=?"));
             db.getPreparedStatement().setInt(1, id);
             
             ResultSet resultSet = db.getPreparedStatement().executeQuery();
@@ -28,10 +28,10 @@ public class FavouriteDB {
         return favourites;
     }
     
-    public static void insertFavourite(int userId, int mountainId) {
+    public static void insertClimbed(int userId, int mountainId) {
         DB db = new DB();
         try {
-            db.setPreparedStatement(db.getConnection().prepareStatement("INSERT INTO favourites(user, mountain) VALUES (?, ?)"));
+            db.setPreparedStatement(db.getConnection().prepareStatement("INSERT INTO climbed(user, mountain) VALUES (?, ?)"));
             db.getPreparedStatement().setInt(1, userId);
             db.getPreparedStatement().setInt(2, mountainId);
             
@@ -43,10 +43,10 @@ public class FavouriteDB {
         }
     }
     
-    public static void deleteFavourite(int userId, int mountainId) {
+    public static void deleteClimbed(int userId, int mountainId) {
         DB db = new DB();
         try {
-            db.setPreparedStatement(db.getConnection().prepareStatement("DELETE FROM favourites WHERE user=? AND mountain=?"));
+            db.setPreparedStatement(db.getConnection().prepareStatement("DELETE FROM climbed WHERE user=? AND mountain=?"));
             db.getPreparedStatement().setInt(1, userId);
             db.getPreparedStatement().setInt(2, mountainId);
             

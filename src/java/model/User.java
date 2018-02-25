@@ -5,11 +5,17 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class User {
-    private int id;
-    private String username, password, name, surname, email, image;
+    private transient int id;
+    private String username, name, surname, email, image;
+    private transient String password;
     private ArrayList<Mountain> climbed, favourites;
-    private boolean administrator;
+    private transient boolean administrator;
     private Date creationDate;
+
+    public User() {
+        climbed = new ArrayList<>();
+        favourites = new ArrayList<>();
+    }
 
     public int getId() {
         return id;

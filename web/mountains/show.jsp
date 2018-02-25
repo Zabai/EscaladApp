@@ -10,7 +10,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EscaladApp - <%= mountain.getName()%></title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
         <link rel="stylesheet" href="/public/css/mystyle.css"/>
+        <script src="/public/js/action.js"></script>
     </head>
     <body>
         <jsp:include page="/WEB-INF/partials/navbar.jsp"></jsp:include>
@@ -36,15 +38,16 @@
                             <br>
 
                             <div class="buttons is-centered">
-                                <% if (user != null && !user.isAdministrator()) { %>
-                                <% if (UserHelper.userHasFavouriteMountain(user, mountain.getId())) { %>
-                                <a class="button is-success">Save changess</a>
-                                <% } %>
-                                <a class="button is-info">Save and continue</a>
-                                <a class="button is-danger">Cancel</a>
-                                <% } else if (user != null) { %>
-                                <a class="button is-info" href="/mountains/edit.jsp?id=<%= mountain.getId() %>">Editar</a>
-                                <a class="button is-danger" href="/FrontServlet?command=mountain.RemoveMountain&id=<%= mountain.getId() %>">Borrar</a>
+                                <% if (user != null && !user.isAdministrator()) {%>
+                                <a id="climbed" class="button is-success is-rounded is-inverted" href="/FrontServlet?command=user.ClimbedCommand&id=<%= mountain.getId() %>">
+                                    Escalado
+                                </a>
+                                <a id="favourite" class="button is-danger is-rounded is-inverted" href="/FrontServlet?command=user.FavouriteCommand&id=<%= mountain.getId()%>">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                                <% } else if (user != null) {%>
+                                <a class="button is-info" href="/mountains/edit.jsp?id=<%= mountain.getId()%>">Editar</a>
+                                <a class="button is-danger" href="/FrontServlet?command=mountain.RemoveMountain&id=<%= mountain.getId()%>">Borrar</a>
                                 <% }%>
                             </div>
                         </div>
@@ -53,8 +56,8 @@
             </div>
         </section>
         <script>
-            var user = '${user}';
-            var mountain = '${mountain}';
+            checkClimbed(JSON.parse('${user}'), <%= mountain.getId()%>);
+            checkFavourite(JSON.parse('${user}'), <%= mountain.getId()%>);
         </script>
 
         <jsp:include page="/WEB-INF/partials/footer.jsp"></jsp:include>

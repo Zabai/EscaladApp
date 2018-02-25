@@ -24,8 +24,9 @@ public class MountainDB {
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.close();
         }
-        db.close();
         
         return mountain;
     }
@@ -42,8 +43,9 @@ public class MountainDB {
             }
         } catch (SQLException ex) {
             Logger.getLogger(MountainDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.close();
         }
-        db.close();
         
         return mountains;
     }
@@ -76,9 +78,9 @@ public class MountainDB {
             db.getPreparedStatement().executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.close();
         }
-        
-        db.close();
     }
 
     public static void updateMountain(Mountain mountain) {
@@ -99,9 +101,9 @@ public class MountainDB {
         } catch (SQLException ex) {
             System.out.println(ex);
             Logger.getLogger(MountainDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.close();
         }
-        
-        db.close();
     }
     
     public static void deleteMountain(Mountain mountain) {
@@ -114,8 +116,8 @@ public class MountainDB {
             db.getPreparedStatement().executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(MountainDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.close();
         }
-        
-        db.close();
     }
 }

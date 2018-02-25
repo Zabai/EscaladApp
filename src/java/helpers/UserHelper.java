@@ -10,4 +10,10 @@ public class UserHelper {
                 .filter(mountain -> mountain.getId()==mountainId)
                 .findFirst().isPresent();
     }
+    
+    public static boolean userHasClimbedMountain(final User user, final int mountainId) {
+        return user.getClimbed().stream()
+                .filter(mountain -> mountain.getId()==mountainId)
+                .findFirst().isPresent();
+    }
 }

@@ -24,23 +24,23 @@
                             <div class="card">
                                 <div class="card-image">
                                     <figure class="image is-4by3">
-                                        <img src="<%= mountains.get(i).getImage()%>" alt="<%= mountains.get(i).getName()%>">
+                                        <img src="<%= mountains.get(0).getImage()%>" alt="<%= mountains.get(0).getName()%>">
                                     </figure>
                                 </div>
 
                                 <header class="card-header">
-                                    <a class="card-header-title" href="/FrontServlet?command=mountain.ShowMountainCommand&id=<%= mountains.get(i).getId()%>">
-                                        <%= mountains.get(i).getName()%>
+                                    <a class="card-header-title" href="/FrontServlet?command=mountain.ShowMountainCommand&id=<%= mountains.get(0).getId()%>">
+                                        <%= mountains.get(0).getName()%>
                                     </a>
                                 </header>
 
                                 <div class="card-content">
                                     <div class="content">
-                                        <%= mountains.get(i).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
+                                        <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
                                     </div>
                                 </div>
                             </div>
-                            <% mountains.remove(i); %>
+                            <% mountains.remove(0); %>
                             <% if (i == 2) {
                                     break;
                                 } %>
@@ -52,23 +52,23 @@
                             <div class="card">
                                 <div class="card-image">
                                     <figure class="image is-4by3">
-                                        <img src="<%= mountains.get(i).getImage()%>" alt="<%= mountains.get(i).getName()%>">
+                                        <img src="<%= mountains.get(0).getImage()%>" alt="<%= mountains.get(0).getName()%>">
                                     </figure>
                                 </div>
 
                                 <header class="card-header">
-                                    <a class="card-header-title" href="/FrontServlet?command=mountain.ShowMountainCommand&id=<%= mountains.get(i).getId()%>">
-                                        <%= mountains.get(i).getName()%>
+                                    <a class="card-header-title" href="/FrontServlet?command=mountain.ShowMountainCommand&id=<%= mountains.get(0).getId()%>">
+                                        <%= mountains.get(0).getName()%>
                                     </a>
                                 </header>
 
                                 <div class="card-content">
                                     <div class="content">
-                                        <%= mountains.get(i).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
+                                        <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
                                     </div>
                                 </div>
                             </div>
-                            <% mountains.remove(i); %>
+                            <% mountains.remove(0); %>
                             <% if (i == 2) {
                                     break;
                                 } %>
@@ -80,27 +80,26 @@
                             <div class="card">
                                 <div class="card-image">
                                     <figure class="image is-4by3">
-                                        <img src="<%= mountains.get(i).getImage()%>" alt="<%= mountains.get(i).getName()%>">
+                                        <img src="<%= mountains.get(0).getImage()%>" alt="<%= mountains.get(0).getName()%>">
                                     </figure>
                                 </div>
 
                                 <header class="card-header">
-                                    <a class="card-header-title" href="/FrontServlet?command=mountain.ShowMountainCommand&id=<%= mountains.get(i).getId()%>">
-                                        <%= mountains.get(i).getName()%>
+                                    <a class="card-header-title" href="/FrontServlet?command=mountain.ShowMountainCommand&id=<%= mountains.get(0).getId()%>">
+                                        <%= mountains.get(0).getName()%>
                                     </a>
                                 </header>
 
                                 <div class="card-content">
                                     <div class="content">
-                                        <%= mountains.get(i).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
+                                        <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
                                     </div>
                                 </div>
                             </div>
-                            <% mountains.remove(i); %>
-                            <% if (i == 2) {
-                                    break;
-                                } %>
-                            <% }%>
+                            <%
+                                    System.out.println("Actual: "+mountains.size());
+                                    mountains.remove(0);
+                                }%>
                         </div>
                     </div>
                 </div>
