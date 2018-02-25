@@ -1,5 +1,6 @@
 package model;
 
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -100,6 +101,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + '}';
+        return new Gson().toJson(this, this.getClass());
     }
 }

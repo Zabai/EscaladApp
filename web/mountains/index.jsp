@@ -1,4 +1,8 @@
+<%@page import="persistence.MountainDB"%>
+<%@page import="model.Mountain"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% ArrayList<Mountain> mountains = MountainDB.getAllMountains(); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,78 +20,91 @@
                         <h1 class="title is-3">Picos</h1>
                         <div class="columns is-centered">
                             <div class="column">
-                                <div class="card">
-                                    <div class="card-image">
-                                        <figure class="image is-4by3">
-                                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-                                        </figure>
-                                    </div>
-
-                                    <header class="card-header">
-                                        <a class="card-header-title" href="/FrontServlet?command=ShowMountain">
-                                            Nombre del pico
-                                        </a>
-                                    </header>
-
-                                    <div class="card-content">
-                                        <div class="content">
-                                            Descripción
-                                        </div>
-                                    </div>
+                            <% for (int i = 0; i < mountains.size(); i++) {%>
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3">
+                                        <img src="<%= mountains.get(i).getImage()%>" alt="<%= mountains.get(i).getName()%>">
+                                    </figure>
                                 </div>
-                                
-                                <div class="card">
-                                    <div class="card-image">
-                                        <figure class="image is-4by3">
-                                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-                                        </figure>
-                                    </div>
 
-                                    <header class="card-header">
-                                        <a class="card-header-title" href="/FrontServlet?command=ShowMountain">
-                                            Nombre del pico
-                                        </a>
-                                    </header>
+                                <header class="card-header">
+                                    <a class="card-header-title" href="/FrontServlet?command=mountain.ShowMountainCommand&id=<%= mountains.get(i).getId()%>">
+                                        <%= mountains.get(i).getName()%>
+                                    </a>
+                                </header>
 
-                                    <div class="card-content">
-                                        <div class="content">
-                                            Descripción
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="card">
-                                    <div class="card-image">
-                                        <figure class="image is-4by3">
-                                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-                                        </figure>
-                                    </div>
-
-                                    <header class="card-header">
-                                        <a class="card-header-title" href="/FrontServlet?command=ShowMountain">
-                                            Nombre del pico
-                                        </a>
-                                    </header>
-
-                                    <div class="card-content">
-                                        <div class="content">
-                                            Descripción
-                                        </div>
+                                <div class="card-content">
+                                    <div class="content">
+                                        <%= mountains.get(i).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
                                     </div>
                                 </div>
                             </div>
-                            <div class="column">
-                                <div class="notification is-primary">
+                            <% mountains.remove(i); %>
+                            <% if (i == 2) {
+                                    break;
+                                } %>
+                            <% }%>
+                        </div>
+
+                        <div class="column">
+                            <% for (int i = 0; i < mountains.size(); i++) {%>
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3">
+                                        <img src="<%= mountains.get(i).getImage()%>" alt="<%= mountains.get(i).getName()%>">
+                                    </figure>
+                                </div>
+
+                                <header class="card-header">
+                                    <a class="card-header-title" href="/FrontServlet?command=mountain.ShowMountainCommand&id=<%= mountains.get(i).getId()%>">
+                                        <%= mountains.get(i).getName()%>
+                                    </a>
+                                </header>
+
+                                <div class="card-content">
+                                    <div class="content">
+                                        <%= mountains.get(i).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="column">
-                                <div class="notification is-primary">
+                            <% mountains.remove(i); %>
+                            <% if (i == 2) {
+                                    break;
+                                } %>
+                            <% }%>
+                        </div>
+
+                        <div class="column">
+                            <% for (int i = 0; i < mountains.size(); i++) {%>
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3">
+                                        <img src="<%= mountains.get(i).getImage()%>" alt="<%= mountains.get(i).getName()%>">
+                                    </figure>
+                                </div>
+
+                                <header class="card-header">
+                                    <a class="card-header-title" href="/FrontServlet?command=mountain.ShowMountainCommand&id=<%= mountains.get(i).getId()%>">
+                                        <%= mountains.get(i).getName()%>
+                                    </a>
+                                </header>
+
+                                <div class="card-content">
+                                    <div class="content">
+                                        <%= mountains.get(i).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
+                                    </div>
                                 </div>
                             </div>
+                            <% mountains.remove(i); %>
+                            <% if (i == 2) {
+                                    break;
+                                } %>
+                            <% }%>
                         </div>
                     </div>
                 </div>
-            </section>
+        </section>
 
         <jsp:include page="/WEB-INF/partials/footer.jsp"></jsp:include>
     </body>

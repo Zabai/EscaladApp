@@ -3,8 +3,10 @@ package persistence;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Mountain;
 import model.User;
 
 public class UserDB {
@@ -25,6 +27,7 @@ public class UserDB {
                 user.setSurname(resultSet.getString("surname"));
                 user.setAdministrator(resultSet.getBoolean("administrator"));
                 user.setCreationDate(resultSet.getDate("creationDate"));
+                user.setFavourites(getUserFavourites(user.getId()));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,5 +54,15 @@ public class UserDB {
         }
         
         db.close();
+    }
+
+    private static ArrayList<Mountain> getUserFavourites(int userId) {
+        ArrayList<Mountain> favourites = new ArrayList<>();
+        ArrayList<Integer> mountainIds = FavouriteDB.getByUserId(userId);
+        
+        for(Integer mountainId : mountainIds)
+            favourites.add(MountainDB.getById(mountainId));
+        
+        return favourites;
     }
 }

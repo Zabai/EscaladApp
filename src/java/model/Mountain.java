@@ -1,5 +1,7 @@
 package model;
 
+import com.google.gson.Gson;
+
 public class Mountain {
     private int id;
     private String name, location, description, image;
@@ -51,5 +53,10 @@ public class Mountain {
 
     public void setAltitude(float altitude) {
         this.altitude = altitude;
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this, this.getClass());
     }
 }

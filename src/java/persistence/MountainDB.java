@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import model.Mountain;
 
 public class MountainDB {
-    private final int pageSize = 10;
+    public static final int PAGE_SIZE = 10;
     
     public static Mountain getById(int id) {
         Mountain mountain = null;
@@ -29,7 +29,7 @@ public class MountainDB {
         
         return mountain;
     }
-
+    
     public static ArrayList<Mountain> getAllMountains() {
         ArrayList<Mountain> mountains = new ArrayList<>();
         
@@ -38,12 +38,12 @@ public class MountainDB {
             ResultSet resultSet = db.getStatement().executeQuery("SELECT * FROM mountains");
             
             while(resultSet.next()) {
-                Mountain mountain = buildMountainFrom(resultSet);
-                mountains.add(mountain);
+                mountains.add(buildMountainFrom(resultSet));
             }
         } catch (SQLException ex) {
             Logger.getLogger(MountainDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+        db.close();
         
         return mountains;
     }
@@ -94,6 +94,22 @@ public class MountainDB {
             db.getPreparedStatement().setString(4, mountain.getImage());
             db.getPreparedStatement().setString(5, mountain.getDescription());
             db.getPreparedStatement().setInt(6, mountain.getId());
+            
+            db.getPreparedStatement().executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(MountainDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        db.close();
+    }
+    
+    public static void deleteMountain(Mountain mountain) {
+        DB db = new DB();
+        
+        try {
+            db.setPreparedStatement(db.getConnection().prepareStatement("DELETE FROM mountains WHERE id=?"));
+            db.getPreparedStatement().setInt(1, mountain.getId());
             
             db.getPreparedStatement().executeUpdate();
         } catch (SQLException ex) {

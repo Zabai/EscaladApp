@@ -12,12 +12,13 @@ public class EditMountainCommand extends FrontCommand {
         Mountain mountain = buildMountainFromRequest();
         
         MountainDB.updateMountain(mountain);
-        redirect("/mountains/show.jsp?id=" + request.getParameter("id"));
+        forward("/FrontServlet?command=mountain.ShowMountainCommand&id=" + mountain.getId());
     }
     
     private Mountain buildMountainFromRequest() {
         Mountain mountain = new Mountain();
         
+        mountain.setId(Integer.parseInt(request.getParameter("id")));
         mountain.setName(UTF8.parse(request.getParameter("name")));
         mountain.setLocation(UTF8.parse(request.getParameter("location")));
         mountain.setAltitude(Float.valueOf(request.getParameter("altitude")));

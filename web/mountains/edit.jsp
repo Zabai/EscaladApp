@@ -1,6 +1,7 @@
+<%@page import="persistence.MountainDB"%>
 <%@page import="model.Mountain"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Mountain mountain = (Mountain) request.getAttribute("mountain"); %>
+<% Mountain mountain = MountainDB.getById(Integer.parseInt(request.getParameter("id"))); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,6 +26,7 @@
                                 <div class="box">
                                     <form action="/FrontServlet" method="post" accept-charset="UTF-8">
                                         <label class="label">*Nombre del pico</label>
+                                        <input hidden="true" name="id" value="<%= mountain.getId() %>">
                                         <p class="control">
                                             <input class="input" placeholder="Teide" autofocus="true" name="name" value="<%= mountain.getName() %>">
                                         </p>
@@ -52,7 +54,7 @@
                                         <div class="field is-grouped is-grouped-centered">
                                             <p class="control is-centered">
                                                 <button class="button is-link">Editar pico</button>
-                                                <a class="button is-default" href="/">Cancelar</a>
+                                                <a class="button is-default" href="/mountains/index.jsp">Cancelar</a>
                                             </p>
                                         </div>
                                     </form>
