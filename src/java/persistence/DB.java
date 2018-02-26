@@ -3,7 +3,6 @@ package persistence;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -14,10 +13,9 @@ public class DB {
     private Connection connection = null;
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
-    private ResultSet resultSet = null;
 
     private final String driver = "com.mysql.jdbc.Driver";
-    private final String DBPath = "jdbc:mysql://localhost/escaladapp";
+    private final String DBPath = "jdbc:mysql://zabapi.tk/escaladapp";
     private final String DBUser = "escaladapp";
     private final String DBPass = "escaladapp";
 
@@ -39,10 +37,6 @@ public class DB {
 
     public void close() {
         try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-
             if (statement != null) {
                 statement.close();
             }

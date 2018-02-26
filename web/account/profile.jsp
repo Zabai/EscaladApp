@@ -33,7 +33,7 @@
                                 <i class="fas fa-tasks"></i>
                                 Montañas escaladas
                             </h1>
-                            <progress class="progress is-success" value="<%= user.getClimbed().size()%>" max="10"></progress>
+                            <progress class="progress is-info" value="<%= user.getClimbed().size()%>" max="9"></progress>
                         <table class="table is-fullwidth">
                             <thead>
                                 <tr>
