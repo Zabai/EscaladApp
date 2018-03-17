@@ -2,7 +2,14 @@
 <%@page import="model.Mountain"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% ArrayList<Mountain> mountains = MountainDB.getAllMountains(); %>
+<%
+    ArrayList<Mountain> mountains = MountainDB.getAllMountains();
+    int mountainsCount = mountains.size();
+    int limit = Integer.parseInt(request.getParameter("page")) - 1;
+    for (int i = 0; i < limit * MountainDB.PAGE_SIZE; i++) {
+        mountains.remove(0);
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -118,6 +125,20 @@
                             %>
                         </div>
                     </div>
+
+                    <% if (mountainsCount > MountainDB.PAGE_SIZE) { %>
+                    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                        <ul class="pagination-list">
+                            <% for (int i = 0; i < Math.ceil((double) mountainsCount / MountainDB.PAGE_SIZE); i++) {%>
+                            <li>
+                                <a class="pagination-link" aria-label="Goto page 1" href="/mountains/index.jsp?page=<%= i + 1%>">
+                                    <%= i + 1%>
+                                </a>
+                            </li>
+                            <% } %>
+                        </ul>
+                    </nav>
+                    <% }%>
                 </div>
         </section>
 

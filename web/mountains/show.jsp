@@ -4,6 +4,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% User user = (User) session.getAttribute("user"); %>
 <% Mountain mountain = (Mountain) request.getAttribute("mountain");%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -56,8 +57,8 @@
             </div>
         </section>
         <script>
-            checkClimbed(JSON.parse('${user}'), <%= mountain.getId()%>);
-            checkFavourite(JSON.parse('${user}'), <%= mountain.getId()%>);
+            checkClimbed(JSON.parse('${user}'), <%= mountain.getId() %>);
+            checkFavourite(JSON.parse('${user}'), <%= mountain.getId() %>);
         </script>
 
         <jsp:include page="/WEB-INF/partials/footer.jsp"></jsp:include>
