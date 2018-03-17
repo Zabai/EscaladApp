@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import model.Mountain;
 
 public class MountainDB {
-    public static final int PAGE_SIZE = 10;
+    public static final int PAGE_SIZE = 9;
     
     public static Mountain getById(int id) {
         Mountain mountain = null;
@@ -45,6 +45,26 @@ public class MountainDB {
             Logger.getLogger(MountainDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             db.close();
+        }
+        
+        return mountains;
+    }
+    
+    public static ArrayList<Mountain> getByPage(int page) {
+        ArrayList<Mountain> mountains = new ArrayList<>();
+        
+        DB db = new DB();
+        try {
+            db.setPreparedStatement(db.getConnection().prepareStatement("SELECT * FROM mountains LIMIT ?, ?"));
+            db.getPreparedStatement().setInt(1, --page * PAGE_SIZE);
+            db.getPreparedStatement().setInt(2, PAGE_SIZE);
+            
+            ResultSet resultSet = db.getPreparedStatement().executeQuery();
+            while(resultSet.next()) {
+                mountains.add(buildMountainFrom(resultSet));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MountainDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return mountains;

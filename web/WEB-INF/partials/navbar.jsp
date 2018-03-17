@@ -13,7 +13,7 @@
         </div>
 
         <div class="navbar-start">
-            <a class="navbar-item" href="/mountains/index.jsp">Picos</a>
+            <a class="navbar-item" href="/mountains/index.jsp?page=1">Picos</a>
 
             <% if (user != null && user.isAdministrator()) { %>
             <a class="navbar-item" href="/mountains/new.jsp">Añadir pico</a>

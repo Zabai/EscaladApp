@@ -1,10 +1,7 @@
 package frontController.account;
 
 import frontController.FrontCommand;
-import java.io.IOException;
 import java.util.Base64;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 import model.User;
