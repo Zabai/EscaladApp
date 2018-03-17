@@ -129,11 +129,6 @@
                     <% if (mountainsCount > MountainDB.PAGE_SIZE) { %>
                     <nav class="pagination is-centered" role="navigation" aria-label="pagination">
                         <ul class="pagination-list">
-                            <%
-                                System.out.println("Nº montañas: " + mountainsCount);
-                                System.out.println("Limite: " + MountainDB.PAGE_SIZE);
-                                System.out.println("Division: " + (double) mountainsCount/MountainDB.PAGE_SIZE);
-                            %>
                             <% for (int i = 0; i < Math.ceil((double) mountainsCount / MountainDB.PAGE_SIZE); i++) {%>
                             <li>
                                 <a class="pagination-link" aria-label="Goto page 1" href="/mountains/index.jsp?page=<%= i + 1%>">
