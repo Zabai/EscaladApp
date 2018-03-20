@@ -5,7 +5,12 @@
 <%
     ArrayList<Mountain> mountains = MountainDB.getAllMountains();
     int mountainsCount = mountains.size();
-    int limit = Integer.parseInt(request.getParameter("page")) - 1;
+    int limit;
+    try {
+     limit = Integer.parseInt(request.getParameter("page")) - 1;
+    } catch(Exception e) {
+        limit = 0;
+    }
     for (int i = 0; i < limit * MountainDB.PAGE_SIZE; i++) {
         mountains.remove(0);
     }
@@ -24,7 +29,7 @@
             <section class="hero is-success is-fullheight bg-img">
                 <div class="hero-body">
                     <div class="container">
-                        <h1 class="title is-3">Picos <a href="/EscaladApp-war/FrontServlet?command=noone">Servlet</a></h1>
+                        <h1 class="title is-3">Picos</h1>
                         <div class="columns is-centered">
                             <div class="column">
                             <%

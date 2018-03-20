@@ -27,7 +27,7 @@
                                 <p class="has-text-danger">${error}</p>
                                 <% }%>
 
-                                <form action="/FrontServlet" method="post">
+                                <form action="/EscaladApp-war/FrontServlet" method="post">
                                     <label class="label">Nombre de usuario</label>
                                     <p class="control">
                                         <input class="input" placeholder="Jefe Maestro" type="text" autofocus="true" name="username">

@@ -26,7 +26,7 @@ public class ClimbedCommand extends FrontCommand {
             ClimbedDB.insertClimbed(user.getId(), mountainId);
         }
         
-        redirect("/FrontServlet?command=mountain.ShowMountainCommand&id=" + request.getParameter("id"));
+        redirect("/EscaladApp-war/FrontServlet?command=mountain.ShowMountainCommand&id=" + request.getParameter("id"));
     }
     
 }

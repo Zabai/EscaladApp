@@ -12,7 +12,7 @@ public class CreateMountainCommand extends FrontCommand {
         Mountain mountain = buildMountainFromRequest();
         
         MountainDB.insertMountain(mountain);
-        redirect("/EscaladApp-war");
+        redirect("/EscaladApp-war/");
     }
 
     private Mountain buildMountainFromRequest() {

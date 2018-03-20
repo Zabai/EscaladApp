@@ -18,7 +18,6 @@
                         </h1>
                         <h2 class="subtitle">
                             Registra tus mayores logros
-                            <a href="/EscaladApp-war/FrontServlet?command=noone">Servlet</a>
                         </h2>
                     </div>
                 </div>

@@ -27,7 +27,7 @@ public class FavouriteCommand extends FrontCommand {
             FavouriteDB.insertFavourite(user.getId(), mountainId);
         }
         
-        redirect("/FrontServlet?command=mountain.ShowMountainCommand&id=" + request.getParameter("id"));
+        redirect("/EscaladApp-war/FrontServlet?command=mountain.ShowMountainCommand&id=" + request.getParameter("id"));
     }
     
 }
