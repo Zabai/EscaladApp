@@ -51,7 +51,9 @@
 
                                 <div class="card-content">
                                     <div class="content">
+                                        <% if(mountains.get(0).getDescription().length() > 150) { %>
                                         <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>

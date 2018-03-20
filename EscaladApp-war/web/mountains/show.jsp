@@ -40,15 +40,15 @@
 
                             <div class="buttons is-centered">
                                 <% if (user != null && !user.isAdministrator()) {%>
-                                <a id="climbed" class="button is-success is-rounded is-inverted" href="/FrontServlet?command=user.ClimbedCommand&id=<%= mountain.getId() %>">
+                                <a id="climbed" class="button is-success is-rounded is-inverted" href="/EscaladApp-war/FrontServlet?command=user.ClimbedCommand&id=<%= mountain.getId() %>">
                                     Escalado
                                 </a>
-                                <a id="favourite" class="button is-danger is-rounded is-inverted" href="/FrontServlet?command=user.FavouriteCommand&id=<%= mountain.getId()%>">
+                                <a id="favourite" class="button is-danger is-rounded is-inverted" href="/EscaladApp-war/FrontServlet?command=user.FavouriteCommand&id=<%= mountain.getId()%>">
                                     <i class="far fa-heart"></i>
                                 </a>
                                 <% } else if (user != null) {%>
                                 <a class="button is-info" href="/EscaladApp-war/mountains/edit.jsp?id=<%= mountain.getId()%>">Editar</a>
-                                <a class="button is-danger" href="/FrontServlet?command=mountain.RemoveMountain&id=<%= mountain.getId()%>">Borrar</a>
+                                <a class="button is-danger" href="/EscaladApp-war/FrontServlet?command=mountain.RemoveMountain&id=<%= mountain.getId()%>">Borrar</a>
                                 <% }%>
                             </div>
                         </div>

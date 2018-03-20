@@ -39,7 +39,7 @@
             </a>
 
             <span class="navbar-item">
-                <form action="/FrontServlet">
+                <form action="/EscaladApp-war/FrontServlet">
                     <input hidden="true" name="command" value="account.LogOutCommand">
                     <button class="button is-danger">Salir</button>
                 </form>

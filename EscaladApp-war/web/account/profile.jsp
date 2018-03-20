@@ -53,7 +53,7 @@
                                     <td><%= mountain.getLocation()%></td>
                                     <td><%= mountain.getAltitude()%></td>
                                     <td>
-                                        <a class="button is-danger" href="/FrontServlet?command=user.ClimbedCommand&id=<%= mountain.getId() %>">Eliminar</a>
+                                        <a class="button is-danger" href="/EscaladApp-war/FrontServlet?command=user.ClimbedCommand&id=<%= mountain.getId() %>">Eliminar</a>
                                     </td>
                                 </tr>
                                 <% }%>
@@ -84,7 +84,7 @@
                                     <td><%= mountain.getLocation()%></td>
                                     <td><%= mountain.getAltitude()%></td>
                                     <td>
-                                        <a class="button is-danger" href="/FrontServlet?command=user.FavouriteCommand&id=<%= mountain.getId() %>">Eliminar</a>
+                                        <a class="button is-danger" href="/EscaladApp-war/FrontServlet?command=user.FavouriteCommand&id=<%= mountain.getId() %>">Eliminar</a>
                                     </td>
                                 </tr>
                                 <% }%>

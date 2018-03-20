@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EscaladApp - Nuevo Pico</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"/>
-        <link rel="stylesheet" href="/public/css/mystyle.css"/>
+        <link rel="stylesheet" href="/EscaladApp-war/public/css/mystyle.css"/>
         <script src="/EscaladApp-war/public/js/textboxio/textboxio.js"></script>
     </head>
     <body>
@@ -21,7 +21,7 @@
                                 </h1>
 
                                 <div class="box">
-                                    <form action="/FrontServlet" method="post" accept-charset="UTF-8">
+                                    <form action="/EscaladApp-war/FrontServlet" method="post" accept-charset="UTF-8">
                                         <label class="label">*Nombre del pico</label>
                                         <p class="control">
                                             <input class="input" placeholder="Teide" autofocus="true" name="name">

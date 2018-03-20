@@ -24,7 +24,7 @@
                                 </h1>
 
                                 <div class="box">
-                                    <form action="/FrontServlet" method="post" accept-charset="UTF-8">
+                                    <form action="/EscaladApp-war/FrontServlet" method="post" accept-charset="UTF-8">
                                         <label class="label">*Nombre del pico</label>
                                         <input hidden="true" name="id" value="<%= mountain.getId() %>">
                                         <p class="control">
