@@ -1,3 +1,5 @@
 // Netbeans Files
 build/
 dist/
+EscaladApp-war/dist/**/*
+EscaladApp-ejb/dist/**/*

@@ -1,0 +1,29 @@
+.bg-img { 
+    background-image: url("/EscaladApp-war/public/images/bg1.jpg");
+    background-position: center center;
+    background-repeat:  no-repeat;
+    background-attachment: fixed;
+    background-size:  cover;
+    background-color: #999;
+}
+
+.box {
+    background-color: rgb(54,54,54);
+}
+
+.box label, p {
+    color: white;
+}
+
+.card {
+    margin: 1em;
+    height: 30em;
+}
+
+.footer {
+    background-color: rgb(54,54,54);
+}
+
+.footer p, strong, a:hover {
+    color: white;
+}
