@@ -3,3 +3,4 @@ build/
 dist/
 EscaladApp-war/dist/**/*
 EscaladApp-ejb/dist/**/*
+log/

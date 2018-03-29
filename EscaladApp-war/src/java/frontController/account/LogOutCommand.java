@@ -3,6 +3,7 @@ package frontController.account;
 import frontController.FrontCommand;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
+import logger.Log;
 
 public class LogOutCommand extends FrontCommand {
 
@@ -24,6 +25,7 @@ public class LogOutCommand extends FrontCommand {
     	if(session != null){
     		session.invalidate();
     	}
+        
         redirect("/EscaladApp-war/");
     }
 

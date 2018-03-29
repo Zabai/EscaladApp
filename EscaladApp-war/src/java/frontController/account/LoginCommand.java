@@ -4,6 +4,7 @@ import frontController.FrontCommand;
 import java.util.Base64;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
+import logger.Log;
 import model.User;
 import persistence.UserDB;
 
