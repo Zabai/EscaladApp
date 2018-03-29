@@ -35,8 +35,8 @@ public class Log {
     }
     
     @Lock(LockType.WRITE)
-    public static void logJsp() {
-        
+    public static void logJsp(String url) {
+        logger.log(Level.INFO, "JSP: {0}", url);
     }
     
     @Lock(LockType.WRITE)
