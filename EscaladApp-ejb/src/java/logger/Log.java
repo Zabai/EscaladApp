@@ -9,6 +9,7 @@ import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
+import javax.ejb.Schedule;
 import javax.ejb.Startup;
 
 @Singleton
@@ -16,17 +17,23 @@ import javax.ejb.Startup;
 @LocalBean
 public class Log {
     static Logger logger;
-    FileHandler fileHandler;
+    private FileHandler fileHandler;
+    private String logPath = "C:\\Users\\zbrma\\Documents\\Web Projects\\EscaladApp\\log\\my-log.log";
     
     @PostConstruct
     private void init() {
         logger = Logger.getLogger(Log.class.getName());
         try {
-            fileHandler = new FileHandler("C:\\Users\\zbrma\\Documents\\Web Projects\\EscaladApp\\log\\my-log.log");
+            fileHandler = new FileHandler(logPath);
             logger.addHandler(fileHandler);
         } catch (IOException | SecurityException ex) {
             logger.severe(ex.getMessage());
         }
+    }
+    
+    @Schedule(hour = "*", minute = "*", second = "*/5")
+    private void logTime() {
+        
     }
     
     @Lock(LockType.WRITE)

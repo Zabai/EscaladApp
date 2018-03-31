@@ -1,10 +1,10 @@
 package frontController.account;
 
+import analytics.Statistics;
 import frontController.FrontCommand;
 import java.util.Base64;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
-import logger.Log;
 import model.User;
 import persistence.UserDB;
 
@@ -27,6 +27,7 @@ public class LoginCommand extends FrontCommand {
             
             response.addCookie(cookieUser);
             
+            Statistics.incrementLogins();
             redirect("/EscaladApp-war/mountains/index.jsp");
         } else {
             request.setAttribute("error", "*Usuario y contraseña incorrectos. Prueba otra vez.");
