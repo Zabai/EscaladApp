@@ -1,13 +1,22 @@
 package frontController.user;
 
+import entities.Favourite;
+import entities.User;
 import frontController.FrontCommand;
 import helpers.UserHelper;
-import model.Mountain;
-import model.User;
-import persistence.FavouriteDB;
-import persistence.MountainDB;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import session.FavouriteFacade;
+import session.MountainFacade;
 
 public class FavouriteCommand extends FrontCommand {
+
+    MountainFacade mountainFacade = lookupMountainFacadeBean();
+
+    FavouriteFacade favouriteFacade = lookupFavouriteFacadeBean();
 
     @Override
     public void process() {
@@ -15,19 +24,41 @@ public class FavouriteCommand extends FrontCommand {
         int mountainId = Integer.parseInt(request.getParameter("id"));
         
         if(UserHelper.userHasFavouriteMountain(user, mountainId)) {
-            Mountain found = user.getFavourites().parallelStream()
-                    .filter(mountain -> mountain.getId()==mountainId)
+            Favourite found = user.getFavouriteList().parallelStream()
+                    .filter(climbed -> climbed.getMountain().getId()==mountainId)
                     .findFirst().get();
-            user.getFavourites().remove(found);
+            user.getFavouriteList().remove(found);
             
-            FavouriteDB.deleteFavourite(user.getId(), mountainId);
+            favouriteFacade.remove(found);
         } else {
-            user.getFavourites().add(MountainDB.getById(mountainId));
+            Favourite favourite = new Favourite();
+            favourite.setUser(user);
+            favourite.setMountain(mountainFacade.find(mountainId));
             
-            FavouriteDB.insertFavourite(user.getId(), mountainId);
+            favouriteFacade.create(favourite);
         }
         
         redirect("/EscaladApp-war/FrontServlet?command=mountain.ShowMountainCommand&id=" + request.getParameter("id"));
+    }
+
+    private FavouriteFacade lookupFavouriteFacadeBean() {
+        try {
+            Context c = new InitialContext();
+            return (FavouriteFacade) c.lookup("java:global/EscaladApp/EscaladApp-ejb/FavouriteFacade!session.FavouriteFacade");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private MountainFacade lookupMountainFacadeBean() {
+        try {
+            Context c = new InitialContext();
+            return (MountainFacade) c.lookup("java:global/EscaladApp/EscaladApp-ejb/MountainFacade!session.MountainFacade");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
     }
     
 }

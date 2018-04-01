@@ -33,7 +33,6 @@ public class Log {
     
     @Schedule(hour = "*", minute = "*", second = "*/5")
     private void logTime() {
-        
     }
     
     @Lock(LockType.WRITE)

@@ -22,6 +22,7 @@ import javax.ejb.Startup;
 public class Statistics {
     private static int visits, logins;
     private static HashMap<String, Integer> pagesVisits, componentsCalls;
+    private static HashMap<String, HashMap<String, Integer>> userStatistics;
     private transient String filePath = "C:\\Users\\zbrma\\Documents\\Web Projects\\EscaladApp\\log\\statistics.json";
 
     @PostConstruct
@@ -30,13 +31,14 @@ public class Statistics {
         logins = 0;
         pagesVisits = new HashMap<>();
         componentsCalls = new HashMap<>();
+        userStatistics = new HashMap<>();
     }
 
     @Schedule(hour = "*", minute = "*", second = "*/5")
     private void saveToFile() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT);
-        
+        System.out.println("GUARDANDO");
         Gson gson = gsonBuilder.create();
         try (Writer writer = new FileWriter(filePath)) {
             gson.toJson(this, writer);

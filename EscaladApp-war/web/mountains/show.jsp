@@ -1,6 +1,6 @@
 <%@page import="helpers.UserHelper"%>
-<%@page import="model.Mountain"%>
-<%@page import="model.User"%>
+<%@page import="entities.Mountain"%>
+<%@page import="entities.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% User user = (User) session.getAttribute("user"); %>
 <% Mountain mountain = (Mountain) request.getAttribute("mountain");%>

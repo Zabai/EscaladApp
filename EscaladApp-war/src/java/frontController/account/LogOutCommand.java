@@ -3,7 +3,6 @@ package frontController.account;
 import frontController.FrontCommand;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
-import logger.Log;
 
 public class LogOutCommand extends FrontCommand {
 
@@ -11,21 +10,19 @@ public class LogOutCommand extends FrontCommand {
     public void process() {
         Cookie[] cookies = request.getCookies();
 
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("JSESSIONID")) {
+        if(cookies != null) {
+            for(Cookie cookie : cookies) {
+                if(cookie.getName().equals("JSESSIONID")) {
                     System.out.println("JSESSIONID=" + cookie.getValue());
                     break;
                 }
             }
         }
-        
+
         HttpSession session = request.getSession(false);
-    	System.out.println("User="+session.getAttribute("user"));
-    	if(session != null){
-    		session.invalidate();
-    	}
-        
+        if(session != null) 
+            session.invalidate();
+
         redirect("/EscaladApp-war/");
     }
 

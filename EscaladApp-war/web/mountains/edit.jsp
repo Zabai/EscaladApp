@@ -1,7 +1,7 @@
-<%@page import="persistence.MountainDB"%>
-<%@page import="model.Mountain"%>
+<%@page import="entities.Mountain"%>
+<jsp:useBean id="mountainFacade" class="session.MountainFacade"></jsp:useBean>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Mountain mountain = MountainDB.getById(Integer.parseInt(request.getParameter("id"))); %>
+<% Mountain mountain = mountainFacade.find(request.getParameter("id")); %>
 <!DOCTYPE html>
 <html>
     <head>

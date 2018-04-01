@@ -1,6 +1,6 @@
+<%@page import="entities.User"%>
 <%@page import="analytics.Statistics"%>
 <%@page import="logger.Log"%>
-<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <% 
