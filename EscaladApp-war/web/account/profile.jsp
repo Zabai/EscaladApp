@@ -1,10 +1,14 @@
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="session.MountainFacade"%>
+<%@page import="entities.Favourite"%>
+<%@page import="entities.Climbed"%>
 <%@page import="helpers.UserHelper"%>
-<%@page import="persistence.MountainDB"%>
-<%@page import="model.Mountain"%>
+<%@page import="entities.Mountain"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.User"%>
+<%@page import="entities.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    MountainFacade mountainFacade = InitialContext.doLookup("java:global/EscaladApp/EscaladApp-ejb/MountainFacade!session.MountainFacade");
     if (session.getAttribute("user") == null) {
         response.sendRedirect("/EscaladApp-war/");
     }
@@ -33,7 +37,7 @@
                                 <i class="fas fa-tasks"></i>
                                 Montañas escaladas
                             </h1>
-                            <progress class="progress is-info" value="<%= user.getClimbed().size()%>" max="<%= MountainDB.getAllMountains().size() %>"></progress>
+                            <progress class="progress is-info" value="<%= user.getClimbedList().size()%>" max="<%= mountainFacade.findAll().size() %>"></progress>
                         <table class="table is-fullwidth">
                             <thead>
                                 <tr>
@@ -46,14 +50,14 @@
                             </thead>
 
                             <tbody>
-                                <% for (Mountain mountain : user.getClimbed()) {%>
+                                <% for (Climbed climbed : user.getClimbedList()) {%>
                                 <tr>
-                                    <td><img class="image is-96x96" src="<%= mountain.getImage()%>"></td>
-                                    <td><%= mountain.getName()%></td>
-                                    <td><%= mountain.getLocation()%></td>
-                                    <td><%= mountain.getAltitude()%></td>
+                                    <td><img class="image is-96x96" src="<%= climbed.getMountain().getImage()%>"></td>
+                                    <td><%= climbed.getMountain().getName() %></td>
+                                    <td><%= climbed.getMountain().getLocation()%></td>
+                                    <td><%= climbed.getMountain().getAltitude()%></td>
                                     <td>
-                                        <a class="button is-danger" href="/EscaladApp-war/FrontServlet?command=user.ClimbedCommand&id=<%= mountain.getId() %>">Eliminar</a>
+                                        <a class="button is-danger" href="/EscaladApp-war/FrontServlet?command=user.ClimbedCommand&id=<%= climbed.getMountain().getId() %>">Eliminar</a>
                                     </td>
                                 </tr>
                                 <% }%>
@@ -77,14 +81,14 @@
                             </thead>
 
                             <tbody>
-                                <% for (Mountain mountain : user.getFavourites()) {%>
+                                <% for (Favourite favourite : user.getFavouriteList()) {%>
                                 <tr>
-                                    <td><img class="image is-96x96" src="<%= mountain.getImage()%>"></td>
-                                    <td><%= mountain.getName()%></td>
-                                    <td><%= mountain.getLocation()%></td>
-                                    <td><%= mountain.getAltitude()%></td>
+                                    <td><img class="image is-96x96" src="<%= favourite.getMountain().getImage()%>"></td>
+                                    <td><%= favourite.getMountain().getName()%></td>
+                                    <td><%= favourite.getMountain().getLocation()%></td>
+                                    <td><%= favourite.getMountain().getAltitude()%></td>
                                     <td>
-                                        <a class="button is-danger" href="/EscaladApp-war/FrontServlet?command=user.FavouriteCommand&id=<%= mountain.getId() %>">Eliminar</a>
+                                        <a class="button is-danger" href="/EscaladApp-war/FrontServlet?command=user.FavouriteCommand&id=<%= favourite.getMountain().getId() %>">Eliminar</a>
                                     </td>
                                 </tr>
                                 <% }%>

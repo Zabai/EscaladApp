@@ -1,30 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import frontController.FrontCommand;
 import frontController.UnknownCommand;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import logger.Log;
 
-/**
- *
- * @author Usuario
- */
 @WebServlet(name = "FrontServlet", urlPatterns = {"/FrontServlet"})
 public class FrontServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
         FrontCommand command = getCommand(request);
-        System.out.println("SERVLET CONTEXT: " + getServletContext().getContextPath());
         command.init(getServletContext(), request, response);
         command.process();
     }
@@ -34,6 +24,7 @@ public class FrontServlet extends HttpServlet {
         try {
             String path = "frontController." + request.getParameter("command");
             command = (FrontCommand) Class.forName(path).newInstance();
+            Log.logCommand(Class.forName(path));
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             command = new UnknownCommand();
         }

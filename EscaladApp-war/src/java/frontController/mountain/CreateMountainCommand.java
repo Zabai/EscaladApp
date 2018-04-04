@@ -1,17 +1,24 @@
 package frontController.mountain;
 
+import entities.Mountain;
 import frontController.FrontCommand;
-import model.Mountain;
-import persistence.MountainDB;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import session.MountainFacade;
 import util.UTF8;
 
 public class CreateMountainCommand extends FrontCommand {
+
+    MountainFacade mountainFacade = lookupMountainFacadeBean();
 
     @Override
     public void process() {
         Mountain mountain = buildMountainFromRequest();
         
-        MountainDB.insertMountain(mountain);
+        mountainFacade.create(mountain);
         redirect("/EscaladApp-war/");
     }
 
@@ -25,6 +32,16 @@ public class CreateMountainCommand extends FrontCommand {
         mountain.setDescription(UTF8.parse(request.getParameter("description")));
         
         return mountain;
+    }
+
+    private MountainFacade lookupMountainFacadeBean() {
+        try {
+            Context c = new InitialContext();
+            return (MountainFacade) c.lookup("java:global/EscaladApp/EscaladApp-ejb/MountainFacade!session.MountainFacade");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
     }
     
 }

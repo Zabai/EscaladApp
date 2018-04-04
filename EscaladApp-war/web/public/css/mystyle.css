@@ -15,6 +15,11 @@
     color: white;
 }
 
+.log {
+    height: 75vh;
+    overflow-y: auto;
+}
+
 .card {
     margin: 1em;
     height: 30em;

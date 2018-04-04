@@ -1,24 +1,32 @@
 package frontController.account;
 
+import analytics.Statistics;
+import authentication.Authentication;
+import entities.User;
 import frontController.FrontCommand;
 import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
-import model.User;
-import persistence.UserDB;
 
 public class LoginCommand extends FrontCommand {
 
+    Authentication authentication = lookupAuthenticationBean();
+
     @Override
     public void process() {
-        User user = buildUserFromRequest();
-        User target = UserDB.getByUsername(user.getUsername());
+        User user = authentication.login(request.getParameter("username"), 
+                Base64.getEncoder().encodeToString(request.getParameter("password").getBytes()));
         
-        if(isCorrectPassword(user.getPassword(), target.getPassword())) {
+        if(user != null) {
             HttpSession session = request.getSession();
             
             int expireTime = 30*60;
-            session.setAttribute("user", target);
+            session.setAttribute("user", user);
             session.setMaxInactiveInterval(expireTime);
             
             Cookie cookieUser = new Cookie("user", user.getUsername());
@@ -26,6 +34,7 @@ public class LoginCommand extends FrontCommand {
             
             response.addCookie(cookieUser);
             
+            Statistics.incrementLogins();
             redirect("/EscaladApp-war/mountains/index.jsp");
         } else {
             request.setAttribute("error", "*Usuario y contraseña incorrectos. Prueba otra vez.");
@@ -33,17 +42,13 @@ public class LoginCommand extends FrontCommand {
         }
     }
 
-    private User buildUserFromRequest() {
-        User user = new User();
-        
-        user.setUsername(request.getParameter("username"));
-        user.setPassword(Base64.getEncoder().encodeToString(request.getParameter("password").getBytes()));
-        
-        return user;
+    private Authentication lookupAuthenticationBean() {
+        try {
+            Context c = new InitialContext();
+            return (Authentication) c.lookup("java:global/EscaladApp/EscaladApp-ejb/Authentication!authentication.Authentication");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
     }
-
-    private boolean isCorrectPassword(String inputPassword, String userPassword) {
-        return inputPassword.equals(userPassword);
-    }
-
 }

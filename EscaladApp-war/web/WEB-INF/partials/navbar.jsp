@@ -1,6 +1,14 @@
-<%@page import="model.User"%>
+<%@page import="entities.User"%>
+<%@page import="analytics.Statistics"%>
+<%@page import="logger.Log"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<% 
+    Log.logJsp(request.getRequestURI());
+    
+    Statistics.incrementVisits();
+    Statistics.incrementPageVisits(request.getRequestURI());
+%>
 <% User user = (User) session.getAttribute("user"); %>
 
 <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
