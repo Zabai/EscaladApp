@@ -38,8 +38,8 @@ public class Statistics {
     private void saveToFile() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT);
-        System.out.println("GUARDANDO");
         Gson gson = gsonBuilder.create();
+        
         try (Writer writer = new FileWriter(filePath)) {
             gson.toJson(this, writer);
         } catch (IOException ex) {
