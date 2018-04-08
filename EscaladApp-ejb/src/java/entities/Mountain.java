@@ -1,5 +1,6 @@
 package entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -35,6 +36,7 @@ public class Mountain implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
+    @Expose
     private Integer id;
     @Basic(optional = false)
     @NotNull

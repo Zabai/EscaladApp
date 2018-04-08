@@ -26,6 +26,8 @@
             <% if (user != null && user.isAdministrator()) { %>
             <a class="navbar-item" href="/EscaladApp-war/mountains/new.jsp">Añadir pico</a>
             <a class="navbar-item" href="/EscaladApp-war/mountains/show.jsp">Ver pico</a>
+            <a class="navbar-item" href="/EscaladApp-war/admin/statistics.jsp">Estadísticas</a>
+            <a class="navbar-item" href="/EscaladApp-war/admin/log.jsp">Log</a>
             <% } %>
         </div>
 

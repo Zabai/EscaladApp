@@ -35,6 +35,8 @@ public class FavouriteCommand extends FrontCommand {
             favourite.setUser(user);
             favourite.setMountain(mountainFacade.find(mountainId));
             
+            user.getFavouriteList().add(favourite);
+            
             favouriteFacade.create(favourite);
         }
         

@@ -36,6 +36,7 @@ public class ClimbedCommand extends FrontCommand {
             climbed.setMountain(mountainFacade.find(mountainId));
             
             user.getClimbedList().add(climbed);
+            
             climbedFacade.create(climbed);
         }
         

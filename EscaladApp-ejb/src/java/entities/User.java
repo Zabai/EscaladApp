@@ -1,6 +1,7 @@
 package entities;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.Date;
@@ -45,12 +46,12 @@ public class User implements Serializable {
     private Integer id;
     @Size(max = 30)
     @Column(name = "username")
+    @Expose
     private String username;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "password")
-    @Expose
     private String password;
     @Size(max = 50)
     @Column(name = "name")
@@ -72,8 +73,10 @@ public class User implements Serializable {
     @Column(name = "administrator")
     private boolean administrator;
     @OneToMany(mappedBy = "user")
+    @Expose
     private List<Favourite> favouriteList;
     @OneToMany(mappedBy = "user")
+    @Expose
     private List<Climbed> climbedList;
 
     public User() {
@@ -194,7 +197,8 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return new Gson().toJson(this, getClass());
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        return gson.toJson(this);
     }
     
 }
