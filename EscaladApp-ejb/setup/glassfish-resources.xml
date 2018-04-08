@@ -21,4 +21,5 @@
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="escaladapp-local" object-type="user" pool-name="mysql_escaladapp_escaladappPool_1"/>
+    <jdbc-resource enabled="true" jndi-name="escaladapp-rapi" object-type="user" pool-name="mysql_escaladapp_escaladappPool"/>
 </resources>
