@@ -40,7 +40,7 @@
                                 Mi ruta
                             </h1>
                             <progress class="progress is-info" 
-                                      value="<%= Collections.frequency(route.getMountains().values(), State.Visited) %>" 
+                                      value="<%= route.countMountainsVisited() %>" 
                                       max="<%= route.getMountains().size() %>"></progress>
                         <table class="table is-fullwidth">
                             <thead>
@@ -49,6 +49,7 @@
                                     <th>Nombre</th>
                                     <th>Localización</th>
                                     <th>Altitud</th>
+                                    <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -60,13 +61,24 @@
                                     <td><%= entry.getKey().getName() %></td>
                                     <td><%= entry.getKey().getLocation()%></td>
                                     <td><%= entry.getKey().getAltitude()%></td>
+                                    <td><%= entry.getValue()%></td>
                                     <td>
-                                        <p>BUTTONS</p>
+                                        <a class="button is-danger" href="/EscaladApp-war/FrontServlet?command=user.RouteMarkCommand&id=<%= entry.getKey().getId() %>">
+                                            <% if(entry.getValue() == State.Pendiente) { %>
+                                            Visitado
+                                            <% } else { %>
+                                            Pendiente
+                                            <% } %>
+                                        </a>
                                     </td>
                                 </tr>
                                 <% }%>
                             </tbody>
                         </table>
+                            <% if(route.getMountains().size() > 0) { %>
+                            <a class="button is-info is-pulled-right" href="/EscaladApp-war/FrontServlet?command=user.RouteClearCommand">Completar ruta</a>
+                            <div class="is-clearfix"></div>
+                            <% } %>
                     </div>
                 </div>
             </div>
