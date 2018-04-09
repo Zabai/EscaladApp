@@ -1,52 +1,45 @@
 package frontController.user;
 
-import entities.Climbed;
+import entities.Mountain;
 import entities.User;
 import frontController.FrontCommand;
-import helpers.UserHelper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import session.ClimbedFacade;
 import session.MountainFacade;
+import stateful.Route;
 
-public class ClimbedCommand extends FrontCommand {
+public class RouteMarkCommand extends FrontCommand {
 
     MountainFacade mountainFacade = lookupMountainFacadeBean();
 
-    ClimbedFacade climbedFacade = lookupClimbedFacadeBean();
+    Route route = lookupRouteBean();
 
     @Override
     public void process() {
-        User user = (User) request.getSession().getAttribute("user");
         int mountainId = Integer.parseInt(request.getParameter("id"));
         
-        if(UserHelper.userHasClimbedMountain(user, mountainId)) {
-            Climbed found = user.getClimbedList().parallelStream()
-                    .filter(climbed -> climbed.getMountain().getId()==mountainId)
-                    .findFirst().get();
-            user.getClimbedList().remove(found);
-            
-            climbedFacade.remove(found);
+        User user = (User) request.getSession().getAttribute("user");
+        route = (Route) request.getSession().getAttribute("route");
+        
+        Mountain mountain = route.getMountainBy(mountainId);
+        
+        if(route.getMountains().get(mountain) == Route.State.Pendiente) {
+            route.markMountainAsVisited(mountain);
         } else {
-            Climbed climbed = new Climbed();
-            climbed.setUser(user);
-            climbed.setMountain(mountainFacade.find(mountainId));
-            
-            user.getClimbedList().add(climbed);
-            
-            climbedFacade.create(climbed);
+            route.markMountainAsPending(mountain);
         }
         
-        redirect("/EscaladApp-war/FrontServlet?command=mountain.ShowMountainCommand&id=" + request.getParameter("id"));
+        request.getSession().setAttribute("route", route);
+        redirect("/EscaladApp-war/account/routes.jsp");
     }
 
-    private ClimbedFacade lookupClimbedFacadeBean() {
+    private Route lookupRouteBean() {
         try {
             Context c = new InitialContext();
-            return (ClimbedFacade) c.lookup("java:global/EscaladApp/EscaladApp-ejb/ClimbedFacade!session.ClimbedFacade");
+            return (Route) c.lookup("java:global/EscaladApp/EscaladApp-ejb/Route!stateful.Route");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -62,5 +55,4 @@ public class ClimbedCommand extends FrontCommand {
             throw new RuntimeException(ne);
         }
     }
-    
 }

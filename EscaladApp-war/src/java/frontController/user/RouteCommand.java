@@ -1,52 +1,42 @@
 package frontController.user;
 
-import entities.Favourite;
 import entities.User;
 import frontController.FrontCommand;
-import helpers.UserHelper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import session.FavouriteFacade;
 import session.MountainFacade;
+import stateful.Route;
 
-public class FavouriteCommand extends FrontCommand {
+public class RouteCommand extends FrontCommand {
 
     MountainFacade mountainFacade = lookupMountainFacadeBean();
 
-    FavouriteFacade favouriteFacade = lookupFavouriteFacadeBean();
+    Route route = lookupRouteBean();
 
     @Override
     public void process() {
-        User user = (User) request.getSession().getAttribute("user");
         int mountainId = Integer.parseInt(request.getParameter("id"));
         
-        if(UserHelper.userHasFavouriteMountain(user, mountainId)) {
-            Favourite found = user.getFavouriteList().parallelStream()
-                    .filter(climbed -> climbed.getMountain().getId()==mountainId)
-                    .findFirst().get();
-            user.getFavouriteList().remove(found);
-            
-            favouriteFacade.remove(found);
+        User user = (User) request.getSession().getAttribute("user");
+        route = (Route) request.getSession().getAttribute("route");
+        
+        if(route.getMountainBy(mountainId) == null) {
+            route.addMountain(mountainFacade.find(mountainId));
         } else {
-            Favourite favourite = new Favourite();
-            favourite.setUser(user);
-            favourite.setMountain(mountainFacade.find(mountainId));
-            
-            user.getFavouriteList().add(favourite);
-            
-            favouriteFacade.create(favourite);
+            route.removeMountain(route.getMountainBy(mountainId));
         }
         
+        request.getSession().setAttribute("route", route);
         redirect("/EscaladApp-war/FrontServlet?command=mountain.ShowMountainCommand&id=" + request.getParameter("id"));
     }
 
-    private FavouriteFacade lookupFavouriteFacadeBean() {
+    private Route lookupRouteBean() {
         try {
             Context c = new InitialContext();
-            return (FavouriteFacade) c.lookup("java:global/EscaladApp/EscaladApp-ejb/FavouriteFacade!session.FavouriteFacade");
+            return (Route) c.lookup("java:global/EscaladApp/EscaladApp-ejb/Route!stateful.Route");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

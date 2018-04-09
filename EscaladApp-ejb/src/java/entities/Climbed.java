@@ -1,5 +1,6 @@
 package entities;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -27,9 +28,11 @@ public class Climbed implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
+    @Expose
     private Integer id;
     @JoinColumn(name = "mountain", referencedColumnName = "id")
     @ManyToOne
+    @Expose
     private Mountain mountain;
     @JoinColumn(name = "user", referencedColumnName = "id")
     @ManyToOne

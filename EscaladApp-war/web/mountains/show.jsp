@@ -1,9 +1,16 @@
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="stateful.Route"%>
 <%@page import="helpers.UserHelper"%>
 <%@page import="entities.Mountain"%>
 <%@page import="entities.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% User user = (User) session.getAttribute("user"); %>
-<% Mountain mountain = (Mountain) request.getAttribute("mountain");%>
+<% 
+    User user = (User) session.getAttribute("user");
+    Mountain mountain = (Mountain) request.getAttribute("mountain");
+    
+    Route route = InitialContext.doLookup("java:global/EscaladApp/EscaladApp-ejb/Route!stateful.Route");
+    route = (Route) session.getAttribute("route");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -43,6 +50,13 @@
                                 <a id="climbed" class="button is-success is-rounded is-inverted" href="/EscaladApp-war/FrontServlet?command=user.ClimbedCommand&id=<%= mountain.getId() %>">
                                     Escalado
                                 </a>
+                                    <a id="routed" class="button is-info is-rounded is-inverted" href="/EscaladApp-war/FrontServlet?command=user.RouteCommand&id=<%= mountain.getId() %>">
+                                        <% if(route.getMountainBy(mountain.getId()) == null) { %>
+                                        Añadir a la ruta
+                                        <% } else { %>
+                                        Eliminar de la ruta
+                                        <% } %>
+                                    </a>
                                 <a id="favourite" class="button is-danger is-rounded is-inverted" href="/EscaladApp-war/FrontServlet?command=user.FavouriteCommand&id=<%= mountain.getId()%>">
                                     <i class="far fa-heart"></i>
                                 </a>

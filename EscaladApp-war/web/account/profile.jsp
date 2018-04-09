@@ -1,17 +1,19 @@
+<%@page import="stateful.Route"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="session.MountainFacade"%>
 <%@page import="entities.Favourite"%>
 <%@page import="entities.Climbed"%>
-<%@page import="helpers.UserHelper"%>
 <%@page import="entities.Mountain"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="entities.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     MountainFacade mountainFacade = InitialContext.doLookup("java:global/EscaladApp/EscaladApp-ejb/MountainFacade!session.MountainFacade");
-    if (session.getAttribute("user") == null) {
+    Route route = InitialContext.doLookup("java:global/EscaladApp/EscaladApp-ejb/Route!stateful.Route");
+    
+    if (session.getAttribute("user") == null)
         response.sendRedirect("/EscaladApp-war/");
-    }
+    
     User user = (User) session.getAttribute("user");
 %>
 <!DOCTYPE html>

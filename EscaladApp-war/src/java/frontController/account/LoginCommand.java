@@ -12,10 +12,12 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
+import stateful.Route;
 
 public class LoginCommand extends FrontCommand {
 
     Authentication authentication = lookupAuthenticationBean();
+    Route route = lookupRouteBean();
 
     @Override
     public void process() {
@@ -26,8 +28,10 @@ public class LoginCommand extends FrontCommand {
             HttpSession session = request.getSession();
             
             int expireTime = 30*60;
-            session.setAttribute("user", user);
             session.setMaxInactiveInterval(expireTime);
+            
+            session.setAttribute("user", user);
+            session.setAttribute("route", route);
             
             Cookie cookieUser = new Cookie("user", user.getUsername());
             cookieUser.setMaxAge(expireTime);
@@ -46,6 +50,16 @@ public class LoginCommand extends FrontCommand {
         try {
             Context c = new InitialContext();
             return (Authentication) c.lookup("java:global/EscaladApp/EscaladApp-ejb/Authentication!authentication.Authentication");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private Route lookupRouteBean() {
+        try {
+            Context c = new InitialContext();
+            return (Route) c.lookup("java:global/EscaladApp/EscaladApp-ejb/Route!stateful.Route");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

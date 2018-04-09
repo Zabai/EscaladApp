@@ -23,9 +23,12 @@
         <div class="navbar-start">
             <a class="navbar-item" href="/EscaladApp-war/mountains/index.jsp?page=1">Picos</a>
 
-            <% if (user != null && user.isAdministrator()) { %>
+            <% if(user != null && user.isAdministrator()) { %>
             <a class="navbar-item" href="/EscaladApp-war/mountains/new.jsp">Añadir pico</a>
-            <a class="navbar-item" href="/EscaladApp-war/mountains/show.jsp">Ver pico</a>
+            <a class="navbar-item" href="/EscaladApp-war/admin/statistics.jsp">Estadísticas</a>
+            <a class="navbar-item" href="/EscaladApp-war/admin/log.jsp">Log</a>
+            <% } else if(user != null) { %>
+            <a class="navbar-item" href="/EscaladApp-war/account/routes.jsp">Ruta</a>
             <% } %>
         </div>
 

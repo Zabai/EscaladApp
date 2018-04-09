@@ -1,14 +1,18 @@
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="session.MountainFacade"%>
 <%@page import="entities.Mountain"%>
-<jsp:useBean id="mountainFacade" class="session.MountainFacade"></jsp:useBean>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Mountain mountain = mountainFacade.find(request.getParameter("id")); %>
+<% 
+    MountainFacade mountainFacade = InitialContext.doLookup("java:global/EscaladApp/EscaladApp-ejb/MountainFacade!session.MountainFacade");
+    Mountain mountain = mountainFacade.find(Integer.parseInt(request.getParameter("id")));
+%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EscaladApp - Editando <%= mountain.getName() %></title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"/>
-        <link rel="stylesheet" href="/public/css/mystyle.css"/>
+        <link rel="stylesheet" href="/EscaladApp-war/public/css/mystyle.css"/>
         <script src="/EscaladApp-war/public/js/textboxio/textboxio.js"></script>
     </head>
     <body>
