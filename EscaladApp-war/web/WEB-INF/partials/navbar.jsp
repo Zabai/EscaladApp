@@ -29,6 +29,7 @@
             <a class="navbar-item" href="/EscaladApp-war/admin/log.jsp">Log</a>
             <% } else if(user != null) { %>
             <a class="navbar-item" href="/EscaladApp-war/account/routes.jsp">Ruta</a>
+            <a class="navbar-item" href="/EscaladApp-war/FrontServlet?command=criteria.ShowCriteriaCommand&page=1">Criteria</a>
             <% } %>
         </div>
 
