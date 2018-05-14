@@ -15,13 +15,7 @@ public class RemoveMountain extends FrontCommand {
 
     @Override
     public void process() {
-        Mountain mountain =  mountainFacade.
-                find(Integer.parseInt(request.getParameter("id")));
-        
-        if(mountain != null)
-           mountainFacade.remove(mountain);
-        
-        
+        mountainFacade.deleteMountain(Integer.parseInt(request.getParameter("id")));
         redirect("/EscaladApp-war/mountains/index.jsp");
     }
 

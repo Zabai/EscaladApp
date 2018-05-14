@@ -16,9 +16,7 @@ public class CreateMountainCommand extends FrontCommand {
 
     @Override
     public void process() {
-        Mountain mountain = buildMountainFromRequest();
-        
-        mountainFacade.create(mountain);
+        mountainFacade.createMountain(buildMountainFromRequest());
         redirect("/EscaladApp-war/");
     }
 

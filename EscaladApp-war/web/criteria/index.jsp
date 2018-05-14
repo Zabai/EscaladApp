@@ -4,9 +4,8 @@
 <%@page import="entities.Mountain"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    MountainFacade mountainFacade = InitialContext.doLookup("java:global/EscaladApp/EscaladApp-ejb/MountainFacade!session.MountainFacade");
-    List<Mountain> mountains = mountainFacade.getMountains();
-    if(mountains == null) System.out.println("ESTA A NULL");
+    List<Mountain> mountains = (List<Mountain>) request.getAttribute("mountains");
+    String order = request.getParameter("order") != null ? request.getParameter("order") : "desc";
     int mountainsCount = mountains.size();
     int limit;
     try {
@@ -14,7 +13,7 @@
     } catch(Exception e) {
         limit = 0;
     }
-    for (int i = 0; i < limit * mountainFacade.PAGE_SIZE; i++) {
+    for (int i = 0; i < limit * 9; i++) {
         mountains.remove(0);
     }
 %>
@@ -56,8 +55,6 @@
                                     <div class="content">
                                         <% if(mountains.get(0).getDescription().length() > 150) { %>
                                         <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
-                                        <% } else { %>
-                                        <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "") %>
                                         <% } %>
                                     </div>
                                 </div>
@@ -91,11 +88,7 @@
 
                                 <div class="card-content">
                                     <div class="content">
-                                        <% if(mountains.get(0).getDescription().length() > 150) { %>
                                         <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
-                                        <% } else { %>
-                                        <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "") %>
-                                        <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -128,11 +121,7 @@
 
                                 <div class="card-content">
                                     <div class="content">
-                                        <% if(mountains.get(0).getDescription().length() > 150) { %>
                                         <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
-                                        <% } else { %>
-                                        <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "") %>
-                                        <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -145,13 +134,14 @@
                             %>
                         </div>
                     </div>
-
-                    <% if (mountainsCount > mountainFacade.PAGE_SIZE) { %>
+                        
+                    <% if (mountainsCount > 9) { %>
                     <nav class="pagination is-centered" role="navigation" aria-label="pagination">
                         <ul class="pagination-list">
-                            <% for (int i = 0; i < Math.ceil((double) mountainsCount / mountainFacade.PAGE_SIZE); i++) {%>
+                            <% for (int i = 0; i < Math.ceil((double) mountainsCount / 9); i++) {%>
                             <li>
-                                <a class="pagination-link" aria-label="Goto page 1" href="/EscaladApp-war/mountains/index.jsp?page=<%= i + 1%>">
+                                <a class="pagination-link" aria-label="Goto page 1" 
+                                   href="/EscaladApp-war/FrontServlet?command=criteria.ShowCriteriaCommand&order=<%= order %>&page=<%= i + 1%>">
                                     <%= i + 1%>
                                 </a>
                             </li>
