@@ -5,7 +5,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     MountainFacade mountainFacade = InitialContext.doLookup("java:global/EscaladApp/EscaladApp-ejb/MountainFacade!session.MountainFacade");
-    List<Mountain> mountains = mountainFacade.findAll();
+    List<Mountain> mountains = mountainFacade.getMountains();
     if(mountains == null) System.out.println("ESTA A NULL");
     int mountainsCount = mountains.size();
     int limit;
@@ -56,6 +56,8 @@
                                     <div class="content">
                                         <% if(mountains.get(0).getDescription().length() > 150) { %>
                                         <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
+                                        <% } else { %>
+                                        <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "") %>
                                         <% } %>
                                     </div>
                                 </div>
@@ -89,7 +91,11 @@
 
                                 <div class="card-content">
                                     <div class="content">
+                                        <% if(mountains.get(0).getDescription().length() > 150) { %>
                                         <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
+                                        <% } else { %>
+                                        <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "") %>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +128,11 @@
 
                                 <div class="card-content">
                                     <div class="content">
+                                        <% if(mountains.get(0).getDescription().length() > 150) { %>
                                         <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "").substring(0, 150) + "..."%>
+                                        <% } else { %>
+                                        <%= mountains.get(0).getDescription().replaceAll("\\<[^>]*>", "") %>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>

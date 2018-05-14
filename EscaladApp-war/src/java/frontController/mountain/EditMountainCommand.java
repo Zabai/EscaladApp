@@ -18,7 +18,7 @@ public class EditMountainCommand extends FrontCommand {
     public void process() {
         Mountain mountain = buildMountainFromRequest();
         
-        mountainFacade.edit(mountain);
+        mountainFacade.updateMountain(mountain);
         forward("/FrontServlet?command=mountain.ShowMountainCommand&id=" + mountain.getId());
     }
     

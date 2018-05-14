@@ -26,6 +26,40 @@ public class MountainFacade extends AbstractFacade<Mountain> {
         super(Mountain.class);
     }
     
+    public void createMountain(Mountain mountain) {
+        em.createNativeQuery("INSERT INTO mountains(name, altitude, location, image, description) "
+                + "VALUES (?, ?, ?, ?, ?)")
+                .setParameter(1, mountain.getName())
+                .setParameter(2, mountain.getAltitude())
+                .setParameter(3, mountain.getLocation())
+                .setParameter(4, mountain.getImage())
+                .setParameter(5, mountain.getDescription())
+                .executeUpdate();
+    }
+    
+    public List<Mountain> getMountains() {
+        return em.createQuery("SELECT m FROM Mountain m ORDER BY m.name ASC").getResultList();
+    }
+    
+    public void updateMountain(Mountain mountain) {
+        em.createQuery("UPDATE Mountain "
+                + "SET name=:name, altitude=:altitude, location=:location, image=:image, description=:description "
+                + "WHERE id=:id")
+                .setParameter("name", mountain.getName())
+                .setParameter("altitude", mountain.getAltitude())
+                .setParameter("location", mountain.getLocation())
+                .setParameter("image", mountain.getImage())
+                .setParameter("description", mountain.getDescription())
+                .setParameter("id", mountain.getId())
+                .executeUpdate();
+    }
+    
+    public void deleteMountain(int mountainId) {
+        em.createQuery("DELETE FROM Mountain m WHERE m.id=:id")
+                .setParameter("id", mountainId)
+                .executeUpdate();
+    }
+    
     public List<Mountain> getMountainsByHeightDesc() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         
