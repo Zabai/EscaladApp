@@ -9,17 +9,24 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Schedule;
 import javax.ejb.Startup;
+import session.StaticticsFacade;
 
 @Singleton
 @Startup
 @LocalBean
 public class Statistics {
+
+    @EJB
+    private StaticticsFacade staticticsFacade;
+    
     private static int visits, logins;
     private static HashMap<String, Integer> pagesVisits, componentsCalls;
     private static HashMap<String, HashMap<String, Integer>> userStatistics;
@@ -27,11 +34,17 @@ public class Statistics {
 
     @PostConstruct
     private void init() {
-        visits = 0;
-        logins = 0;
+        visits = staticticsFacade.getVisists();
+        logins = staticticsFacade.getLogins();
         pagesVisits = new HashMap<>();
         componentsCalls = new HashMap<>();
         userStatistics = new HashMap<>();
+    }
+    
+    @PreDestroy
+    private void updateStatictics() {
+        staticticsFacade.updateVisits(visits);
+        staticticsFacade.updateLogins(logins);
     }
 
     @Schedule(hour = "*", minute = "*", second = "*/5")
